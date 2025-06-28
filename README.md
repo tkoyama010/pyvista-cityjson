@@ -20,7 +20,7 @@
 
 ```bash
 pip install pyvista-cityjson
-````
+```
 
 ## Usage
 
@@ -56,16 +56,16 @@ pv.Plotter().add_mesh(colored).show()
 
 ## Requirements
 
-* Python 3.8+
-* `pyvista`
-* `numpy`
-* `cityjson` or `cjio` (for parsing)
+- Python 3.8+
+- `pyvista`
+- `numpy`
+- `cityjson` or `cjio` (for parsing)
 
 ## Roadmap
 
-* [ ] Support CityJSON v2.x
-* [ ] Better handling of textures and materials
-* [ ] Support CityJSON metadata (e.g. CRS transformation)
+- [ ] Support CityJSON v2.x
+- [ ] Better handling of textures and materials
+- [ ] Support CityJSON metadata (e.g. CRS transformation)
 
 ## Contributing
 
