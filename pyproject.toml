@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "black", "flake8"]
+dev = ["pytest", "black", "flake8", "pre-commit", "ruff"]
 
 [project.scripts]
 pyvista-cityjson = "pyvista_cityjson.cli:main"
@@ -38,3 +38,7 @@ pyvista-cityjson = "pyvista_cityjson.cli:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["pyvista_cityjson*"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["COM812", "ISC001", "D203", "D213"]
