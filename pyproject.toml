@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "black", "flake8"]
+dev = ["pytest", "black", "flake8", "pre-commit", "ruff"]
 
 [project.scripts]
 pyvista-cityjson = "pyvista_cityjson.cli:main"
