@@ -14,6 +14,10 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.8", "3.9", "3.10", "3.11"]
+        exclude:
+          # VTK is not available for Python 3.8 on macOS ARM64
+          - os: macos-latest
+            python-version: "3.8"
 
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +31,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libgl1-mesa-glx
+          sudo apt-get install -y xvfb libgl1
 
       - name: Install dependencies
         run: |
@@ -61,7 +65,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libgl1-mesa-glx
+          sudo apt-get install -y xvfb libgl1
 
       - name: Install dependencies
         run: |
