@@ -1,5 +1,4 @@
-"""
-PyVista CityJSON - Visualize CityJSON data with PyVista
+"""PyVista CityJSON - Visualize CityJSON data with PyVista.
 
 A Python library to load and visualize CityJSON files using PyVista.
 """
