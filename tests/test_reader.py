@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 
+from pyvista_cityjson import read_cityjson
 from pyvista_cityjson.reader import CityJSONReader
 
 
@@ -146,3 +148,49 @@ def test_color_by_surface(sample_cityjson_file):
     reader = CityJSONReader(sample_cityjson_file)
     colored_mesh = reader.color_by_surface()
     assert colored_mesh is not None
+
+
+def test_read_cityjson_function(sample_cityjson_file):
+    """Test the read_cityjson convenience function."""
+    mesh = read_cityjson(sample_cityjson_file)
+
+    assert mesh is not None
+    assert mesh.n_points == 8  # cube has 8 vertices
+    assert mesh.n_cells > 0  # should have faces
+
+    # Check cell data
+    assert "object_type" in mesh.cell_data
+    assert "object_id" in mesh.cell_data
+
+
+def test_read_cityjson_with_pathlib_path(sample_cityjson_file):
+    """Test read_cityjson with pathlib.Path input."""
+    mesh = read_cityjson(Path(sample_cityjson_file))
+    assert mesh is not None
+    assert mesh.n_points == 8
+
+
+def test_read_cityjson_file_not_found():
+    """Test read_cityjson with non-existent file."""
+    with pytest.raises(FileNotFoundError, match="File not found"):
+        read_cityjson("non_existent_file.json")
+
+
+def test_read_cityjson_invalid_json(tmp_path):
+    """Test read_cityjson with invalid JSON file."""
+    invalid_json_file = tmp_path / "invalid.json"
+    with invalid_json_file.open("w") as f:
+        f.write("This is not valid JSON{")
+
+    with pytest.raises(ValueError, match="Invalid JSON file"):
+        read_cityjson(invalid_json_file)
+
+
+def test_read_cityjson_invalid_cityjson(tmp_path):
+    """Test read_cityjson with valid JSON but invalid CityJSON."""
+    invalid_cityjson = tmp_path / "not_cityjson.json"
+    with invalid_cityjson.open("w") as f:
+        json.dump({"type": "NotCityJSON", "data": "something"}, f)
+
+    with pytest.raises(ValueError, match="Invalid CityJSON file"):
+        read_cityjson(invalid_cityjson)
