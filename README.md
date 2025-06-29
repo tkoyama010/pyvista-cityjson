@@ -24,6 +24,38 @@ pip install pyvista-cityjson
 
 ## Usage
 
+### Quick start
+
+```python
+import pyvista as pv
+import pyvista_cityjson
+
+# Load CityJSON file directly
+mesh = pyvista_cityjson.read_cityjson("path/to/your_file.city.json")
+
+# Plot interactively
+plotter = pv.Plotter()
+plotter.add_mesh(mesh, show_edges=True)
+plotter.show()
+```
+
+The `read_cityjson` function supports filtering by object type:
+
+```python
+# Load only buildings
+buildings = pyvista_cityjson.read_cityjson("path/to/your_file.city.json", city_object_type="Building")
+
+# Load multiple object types
+infrastructure = pyvista_cityjson.read_cityjson(
+    "path/to/your_file.city.json",
+    city_object_type=["Bridge", "Road", "Railway"]
+)
+```
+
+### Using the CityJSONReader class
+
+For more control and advanced features, use the `CityJSONReader` class:
+
 ```python
 import pyvista as pv
 from pyvista_cityjson import CityJSONReader
@@ -43,6 +75,7 @@ plotter.show()
 ### Filtering by object type
 
 ```python
+# Using the reader instance
 buildings = reader.filter_by_type("Building")
 pv.Plotter().add_mesh(buildings).show()
 ```
@@ -50,6 +83,7 @@ pv.Plotter().add_mesh(buildings).show()
 ### Visualize with semantic surfaces
 
 ```python
+# Using the reader instance
 colored = reader.color_by_surface()
 pv.Plotter().add_mesh(colored).show()
 ```
