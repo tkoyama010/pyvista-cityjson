@@ -1,7 +1,5 @@
 {
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "imageSize": 100,
   "commit": false,
   "commitType": "docs",
@@ -12,18 +10,14 @@
       "name": "Tetsuo Koyama",
       "avatar_url": "https://avatars.githubusercontent.com/u/7513610?v=4",
       "profile": "https://github.com/tkoyama010",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "claude",
       "name": "Claude",
       "avatar_url": "https://avatars.githubusercontent.com/u/81847?v=4",
       "profile": "https://anthropic.com/claude-code",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 7,
