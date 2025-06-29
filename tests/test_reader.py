@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 
@@ -164,8 +165,6 @@ def test_read_cityjson_function(sample_cityjson_file):
 
 def test_read_cityjson_with_pathlib_path(sample_cityjson_file):
     """Test read_cityjson with pathlib.Path input."""
-    from pathlib import Path
-
     mesh = read_cityjson(Path(sample_cityjson_file))
     assert mesh is not None
     assert mesh.n_points == 8
