@@ -57,8 +57,15 @@ class CityJSONReader:
 
     def _load_file(self) -> None:
         """Load and parse the CityJSON file."""
-        with Path(self.filename).open() as f:
-            self._data = json.load(f)
+        try:
+            with Path(self.filename).open() as f:
+                self._data = json.load(f)
+        except FileNotFoundError as e:
+            msg = f"File not found: {self.filename}"
+            raise FileNotFoundError(msg) from e
+        except json.JSONDecodeError as e:
+            msg = f"Invalid JSON file: {self.filename}"
+            raise ValueError(msg) from e
 
         # Validate CityJSON format
         if self._data.get("type") != "CityJSON":
@@ -200,3 +207,36 @@ class CityJSONReader:
             return self._mesh.copy()
 
         return None
+
+
+def read_cityjson(filename: str | Path) -> pv.PolyData:
+    """Read a CityJSON file and return a PyVista mesh.
+
+    Parameters
+    ----------
+    filename : str | Path
+        Path to the CityJSON file to read.
+
+    Returns
+    -------
+    pyvista.PolyData
+        PyVista mesh representation of the CityJSON data.
+
+    Raises
+    ------
+    ImportError
+        If PyVista is not installed.
+    ValueError
+        If the file is not a valid CityJSON file.
+    FileNotFoundError
+        If the specified file does not exist.
+
+    Examples
+    --------
+    >>> import pyvista_cityjson
+    >>> mesh = pyvista_cityjson.read_cityjson("city.json")
+    >>> mesh.plot()
+
+    """
+    reader = CityJSONReader(filename)
+    return reader.mesh
