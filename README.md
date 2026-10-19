@@ -49,12 +49,13 @@ The `read_cityjson` function supports filtering by object type:
 
 ```python
 # Load only buildings
-buildings = pyvista_cityjson.read_cityjson("path/to/your_file.city.json", city_object_type="Building")
+buildings = pyvista_cityjson.read_cityjson(
+    "path/to/your_file.city.json", city_object_type="Building"
+)
 
 # Load multiple object types
 infrastructure = pyvista_cityjson.read_cityjson(
-    "path/to/your_file.city.json",
-    city_object_type=["Bridge", "Road", "Railway"]
+    "path/to/your_file.city.json", city_object_type=["Bridge", "Road", "Railway"]
 )
 ```
 
